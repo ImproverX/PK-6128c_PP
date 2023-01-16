@@ -1,7 +1,7 @@
 # Вектор ПК-6128ц++
 Вектор ПК-6128ц новодел на базе [восстановленной схемы](https://github.com/ImproverX/PK-6128c). Платы выполнены в размере под установку в обычный [корпус ПК Вектор-06ц](https://github.com/ImproverX/Vector06c_case), в качестве клавиатуры используется [плата под ПКМ-1Б или кнопки Черри](https://github.com/ImproverX/Vector-KBD), либо оригинальная клавиатура от Вектора.<br>Обсуждение в [форуме zx-pk.ru](https://zx-pk.ru/threads/34716-reinkarnatsiya-vektor-pk-6128ts.html).
 
-## Содержимое проекта:
+## Содержимое проекта
 * [PK6128c_PP.DSN](/PK6128c_PP.DSN) -- обновлённая схема ПК-6128ц++ в формате Proteus 7. В данном ПО возможно частичное моделирование работы схемы. Для корректного открытия схемы потребуется содержимое ПЗУ D10 (К155РЕ3) в бинарном виде [K155RE3.bin](https://github.com/ImproverX/PK-6128c/blob/main/K155PE3.bin) и модель [K155RE3.MDF](https://github.com/ImproverX/PK-6128c/blob/main/K155PE3.MDF) (положите этот файл в "<директория протеуса>\MODELS" для работы моделирования D10 в схеме).
 * [PK6128c_PP.LYT](/PK6128c_PP.LYT) -- разводка плат в формате Proteus 7.
 * [PK6128c_PP_Shema_P1.png](/PK6128c_PP_Shema_P1.png) и [PK6128c_PP_Shema_P2.png](/PK6128c_PP_Shema_P2.png) -- схема в формате PNG, страница 1 и страница 2.
