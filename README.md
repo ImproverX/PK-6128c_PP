@@ -5,7 +5,7 @@
 * [PK6128c_PP.DSN](/PK6128c_PP.DSN) -- обновлённая схема ПК-6128ц++ в формате Proteus 7. В данном ПО возможно частичное моделирование работы схемы. Для корректного открытия схемы потребуется содержимое ПЗУ D10 (К155РЕ3) в бинарном виде [K155RE3.bin](https://github.com/ImproverX/PK-6128c/blob/main/K155PE3.bin) и модель [K155RE3.MDF](https://github.com/ImproverX/PK-6128c/blob/main/K155PE3.MDF) (положите этот файл в "<директория протеуса>\MODELS" для работы моделирования D10 в схеме).
 * [PK6128c_PP.LYT](/PK6128c_PP.LYT) -- разводка плат в формате Proteus 7.
 * [PK6128c_PP_Shema_P1.png](/PK6128c_PP_Shema_P1.png) и [PK6128c_PP_Shema_P2.png](/PK6128c_PP_Shema_P2.png) -- схема в формате PNG, страница 1 и страница 2.
-* [PK6128c_PP_cpu - CADCAM.ZIP](https://github.com/ImproverX/PK-6128c_PP/blob/main/PK6128c_PP_cpu%20-%20CADCAM.ZIP), [PK6128c_PP_ram - CADCAM.ZIP](https://github.com/ImproverX/PK-6128c_PP/blob/main/PK6128c_PP_ram%20-%20CADCAM.ZIP) и [PK6128c_PP_main - CADCAM.ZIP](https://github.com/ImproverX/PK-6128c_PP/blob/main/PK6128c_PP_main%20-%20CADCAM.ZIP) -- гербер-архивы для изготовления плат процессора, памяти и основной платы соответственно.
+* [PK6128c_PP_cpu - CADCAM.ZIP](/PK6128c_PP_cpu%20-%20CADCAM.ZIP), [PK6128c_PP_ram - CADCAM.ZIP](/PK6128c_PP_ram%20-%20CADCAM.ZIP) и [PK6128c_PP_main - CADCAM.ZIP](/PK6128c_PP_main%20-%20CADCAM.ZIP) -- гербер-архивы для изготовления плат процессора, памяти и основной платы соответственно.
 
 Нумерация элементов оригинального ПК-6128ц по возможности сохранена, добавленные микросхемы на схеме обозначены U**, резисторы от R200 и далее, конденсаторы от C100 и далее.
 
