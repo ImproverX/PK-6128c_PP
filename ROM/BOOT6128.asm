@@ -55,7 +55,7 @@ L_0000:	DI
 ;
 	.db  "  Improver"	; метка версии прошивки
 	RET		; для RST7
-	.db  "BOOT6128+01"
+	.db  "BOOT6128+02"
 ;
 L_NXT:	LXI  H, 0C13Eh
 	PUSH H		; примитивная проверка памяти...
@@ -669,22 +669,22 @@ L_0451:	MOV  D, A
 	CMP  H
 	JC      L_0451
 	ADD  D
-;	ADI	012h	; поправка для ПК-6128ц
+	ADI	006h	; поправка для ПК-6128ц
 	STA     M_VEF6	; скорость чтения
 ;;	MVI  A, 006h	; выключаем РУС/ЛАТ	+++
 ;;	OUT     000h	; отправляем в порт C	+++
 	MVI  E, 00Ch
 	JMP     L_021E	; >>>>>>>>>>>>>>>>>>
 ;
-L_0467:	PUSH D
+L_0467:;;;	PUSH D
 	IN      001h
 	ANI     010h
 	MOV  E, A
 L_046D:	IN      001h
 	ANI     010h
 	CMP  E
-	JZ      L_046D
-	MOV  E, A
+	JZ      L_046D	; ожидание сигнала
+L_0475:	MOV  E, A
 	MVI  D, 001h
 L_0478:	IN      001h
 	ANI     010h
@@ -694,7 +694,7 @@ L_0478:	IN      001h
 	MOV  A, D
 	ADD  A
 	ADD  A
-	POP  D
+;;;	POP  D
 	RET
 ;
 L_0486:	PUSH H
@@ -706,8 +706,9 @@ L_0488:	CALL    L_0467
 	MOV  C, A
 	LXI  H, 00000h
 	MVI  D, 020h
-L_0494:	CALL    L_0467
-	PUSH D
+L_0494:	PUSH D
+	CALL    L_0467
+;;;	PUSH D
 	MVI  D, 000h
 	MOV  E, A
 	DAD  D
