@@ -32,7 +32,7 @@ L_VI53:	OUT  008h	; реж-4,ст.байт
 ;
 	.db  "Improver"
 	RET		; для RST7
-	.db  "TEST6128+04"	; метка версии прошивки
+	.db  "TEST6128+05"	; метка версии прошивки
 ;
 L_TROM:	MOV  A, M
 	XRA  D
