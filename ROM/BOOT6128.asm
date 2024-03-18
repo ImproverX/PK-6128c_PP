@@ -55,7 +55,7 @@ L_0000:	DI
 ;
 	.db  "  Improver"	; метка версии прошивки
 	RET		; для RST7
-	.db  "BOOT6128+02"
+	.db  "BOOT6128+03"
 ;
 L_NXT:	LXI  H, 0C13Eh
 	PUSH H		; примитивная проверка памяти...
@@ -647,7 +647,7 @@ L_042B:	LXI  H, L_0714	; << загрузка с магнитофона
 ;;	OUT     000h	; отправляем в порт C	+++
 	XRA  A		; подчистка экрана
 	LXI  H, M_VAR1	; начало
-	MVI  C, 007h	; счётчик
+	MVI  C, 009h	; счётчик
 L_0437:	MOV  M, A
 	INR  L
 	DCR  C
@@ -684,7 +684,7 @@ L_046D:	IN      001h
 	ANI     010h
 	CMP  E
 	JZ      L_046D	; ожидание сигнала
-L_0475:	MOV  E, A
+	MOV  E, A
 	MVI  D, 001h
 L_0478:	IN      001h
 	ANI     010h
