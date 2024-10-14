@@ -55,7 +55,7 @@ L_0000:	DI
 ;
 	.db  "  Improver"	; метка версии прошивки
 	RET		; для RST7
-	.db  "BOOT6128+03"
+	.db  "BOOT6128+04"
 ;
 L_NXT:	LXI  H, 0C13Eh
 	PUSH H		; примитивная проверка памяти...
@@ -313,7 +313,7 @@ L_01C1:	MVI  A, 09Bh	; A,B,C - ввод, режим 0 (1001 1011)
 	RET		; >>> сетевой адаптер обнаружен
 ;
 ; ---------------------------------------------------------
-L_01C6:	;CALL    L_0620	; << загрузка через сетевой адаптер
+L_01C6:	;CALL    L_0620	; << загрузка через сетевой адаптер / магнитофон
 	LXI  H, L_0779	; картинка сети
 	CALL    L_016D	; отрисовка картинки
 	LXI  H, L_02A8
@@ -355,20 +355,38 @@ L_0206:	DCR  D
 	ANI     0E0h
 	JNZ     L_01D8
 	MVI  E, 003h
-L_021E:	MVI  A, 008h	; <<<<<<<<<<<<<<<
+L_021E:	MVI  A, 008h	; <<<<<<<<<<<<<<< магнитофон
 	CALL    M_PP1	; >>>
 	CPI     055h
 	JZ      L_022D
 	CPI     0AAh
 	JNZ     M_PP2	; >>>
 L_022D:	DCR  E
-	JNZ     L_021E
+	JNZ     L_021E	; цикл заголовка
 L_0231:	CALL    L_02E6
 	MOV  E, A
 	MOV  A, M
 	ORA  A
 	JNZ     L_0231
-	LXI  H, M_VEF1
+;	LXI  H, M_VEF1
+	LXI  H, M_VEF1-2	; определяем последний блок
+	MOV  A, M		;
+	INX  H			;
+	ADD  M			;
+	DCR  A			;
+	PUSH H			; ставим метку
+	MOV  H, A		;
+	MVI  L, 000h		;
+	CALL    L_0141	; вычисление координат загрузочной таблицы
+	DCR  L			;
+	DCR  L			;
+	MVI  M, 008h		;
+	DCR  L			;
+	MVI  M, 014h		;
+	DCR  L			;
+	MVI  M, 022h		; галочка
+	POP  H			;
+	INX  H			;
 	MOV  A, M
 	DCX  H
 	CMP  M
@@ -376,7 +394,7 @@ L_0231:	CALL    L_02E6
 	MOV  D, A
 	DCX  H
 	MOV  B, M
-L_0246:	CALL    L_02E6
+L_0246:	CALL    L_02E6	; << начало цикла загрузки блоков
 	PUSH PSW
 	MOV  A, M
 	ORA  A
@@ -411,26 +429,26 @@ L_0262:	MOV  A, M
 	CALL    L_0141	; вычисление координат загрузочной таблицы
 	MOV  M, E
 	POP  D
-	CALL    L_0297
+	CALL    L_0297	; блок загружен?
 	JZ      L_0246
 	MOV  A, D
-	CPI     001h
+	CPI     001h	; последний блок?
 	JNZ     L_0246
-	RET
+	RET		; >>>>> загрузка окончена
 ;
 L_0282:	POP  PSW
 	SUB  E
 	JZ      L_0246
 	INR  A
 	JNZ     L_0000	; сброс
-	CALL    L_0297
+	CALL    L_0297	; блок загружен?
 	JZ      L_0000	; сброс
 	DCR  E
 	INR  B
 	DCR  D
 	JMP     L_0246
 ;
-L_0297:	MVI  L, 000h
+L_0297:	MVI  L, 000h	; ПП проверки заполнения блока
 	MOV  H, B
 	CALL    L_0141	; вычисление координат загрузочной таблицы
 L_029D:	MOV  A, M
@@ -482,7 +500,7 @@ L_02E6:	PUSH B
 	PUSH D
 	LXI  H, M_VAR1
 L_02EB:	PUSH H
-	LXI  B, 00023h
+	LXI  B, 00023h	; B - контр. сумма; C - счётчик
 	MVI  A, 0FFh
 L_02F1:	CALL    M_PP1	; >>>
 	MOV  M, A
@@ -491,7 +509,7 @@ L_02F1:	CALL    M_PP1	; >>>
 	MOV  B, A
 	MVI  A, 008h
 	DCR  C
-	JNZ     L_02F1
+	JNZ     L_02F1	; цикл по строке
 	DCX  H
 	MOV  A, B
 	SUB  M
@@ -753,16 +771,16 @@ L_04CD: DCR  A
 	ORA  A
 	JP      L_04EF
 	MOV  A, C
-	CPI     0E6h
+	CPI     0E6h	; синхробайт
 	JNZ     L_04E3
 	XRA  A
-	STA     M_VEF4	; ????
+	STA     M_VEF4	; выкл. инвертирование сигнала
 	JMP     L_04ED
 ;
-L_04E3: CPI     019h
+L_04E3: CPI     019h	; синхробайт в инверсии
 	JNZ     L_04B6
 	MVI  A, 0FFh
-	STA     M_VEF4	; ????
+	STA     M_VEF4	; вкл. инвертирование сигнала
 L_04ED: MVI  D, 009h
 L_04EF: DCR  D
 	JNZ     L_04B6
