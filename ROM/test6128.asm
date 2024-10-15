@@ -1,7 +1,7 @@
 	.org 00000h
 LnPRG1:	.EQU 1024
 L_PRG2:	.EQU L_PRG1+LnPRG1
-LnPRG2:	.EQU 28228
+LnPRG2:	.EQU 28228	;27460
 ;
 L_STRT:	DI
 ;инициализация портов ввода/вывода
@@ -32,7 +32,7 @@ L_VI53:	OUT  008h	; реж-4,ст.байт
 ;
 	.db  "Improver"
 	RET		; для RST7
-	.db  "TEST6128+06"	; метка версии прошивки
+	.db  "TEST6128+07"	; метка версии прошивки
 ;
 L_TROM:	MOV  A, M
 	XRA  D
@@ -358,44 +358,40 @@ L_MT2:	MOV  M, D
 ; тестирование памяти методом чтения/записи через стек
 ;	LXI  SP,00000h	; начало
 	LXI  D, 06699h	; контр.код.1
-L_MTs0:	XRA  A
-	MOV  C, A	; счётчик
-L_MTs1:	PUSH D		; положить в стек DE
-	POP  H		; считать в HL
-	ORA  L
+	LXI  H, 04000h	; счётчик
+L_MTs0:	PUSH D		; заполнение стека значением DE
+	DCR  L
+	JNZ     L_MTs0	; цикл LO
+	DCR  H
+	JNZ     L_MTs0	; цикл HI
+	MOV  C, L	; счётчик
+L_MTs1:	POP  H		; считать в HL
+	MOV  A, L
 	XRA  E
 	XRA  H
 	XRA  D
 	JNZ     L_MERR	; не совпало, вывод ошибки и сброс
-	PUSH D		; ещё раз положить в стек, для сдвига
 	DCR  C
 	JNZ     L_MTs1	; цикл LO
-	LXI  H, 00000h
+	LXI  H, 08000h
 	DAD  SP
-	MOV  A, H
-	ADD  L
-	CPI  080h
-	JNZ     L_MTs0	; цикл до SP = 8000h
+	JC	L_MTs1	; цикл до SP = 0000h
 ;
 	LXI  SP,00000h	; начало
 	LXI  D, 09966h	; контр.код.2
-L_MTs2:	XRA  A
-L_MTs3:	PUSH D		; положить в стек DE
+L_MTs2:	PUSH D		; положить в стек DE
 	POP  H		; считать в HL
-	ORA  L
+	MOV  A, L
 	XRA  E
 	XRA  H
 	XRA  D
 	JNZ     L_MERi	; не совпало, вывод ошибки и сброс
 	PUSH B		; положить в стек счётчик, для следующего теста
 	INR  C
-	JNZ     L_MTs3	; цикл LO
-	LXI  H, 00000h
+	JNZ     L_MTs2	; цикл LO
+	LXI  H, 07F00h
 	DAD  SP
-	MOV  A, H
-	ADD  L
-	CPI  080h
-	JNZ     L_MTs2	; цикл до SP = 8000h
+	JC     L_MTs2	; цикл до SP = 8000h
 ;
 	MVI  E, 001h	; LXI  D, 0CC01h	; контр.код (инверсия)
 L_MTr2:	MOV  A, B
@@ -410,11 +406,9 @@ L_MTr3:	POP  H		; считать в HL
 	INX  D
 	DCR  C
 	JNZ     L_MTr3	; цикл LO
-	LXI  H, 00000h
+	LXI  H, 08000h
 	DAD  SP
-	MOV  A, H
-	ADD  L
-	JNZ     L_MTr2	; цикл до SP = 0000h
+	JC     L_MTr2	; цикл до SP = 0000h
 
 	; Значение делителя частоты (1,5 МГц / 1000 = 1,5 кГц)
 	MVI  A, 036h	; 0011 0110 -- [канал 0][чт/зп слова][режим 3][двоичный]
@@ -447,7 +441,6 @@ L_VIx2:	OUT  08h	; реж-4,ст.байт
 	JP	L_MT0	; если < 80h -- цикл
 ;
 ; тестирование памяти пройдено без ошибок
-;	JMP	L_STL
 ;
 ; копируем дописанную программу в память с адреса 0100h (без проверки)
 	LXI  H, 00001h	;
@@ -481,15 +474,6 @@ L_CP:	POP  D
 	JNZ     L_CP	; цикл LO
 	DCR  B
 	JNZ     L_CP	; цикл HI копирования
-;
-;	LXI  H, 00000h	;
-;	MVI  M, 0F3h	; << 0000: DI
-;	INR  L
-;	MVI  M, 0C3h	; << 0001: JMP ...
-;	INR  L
-;	MVI  M, 000h
-;	INR  L
-;	MVI  M, 001h	; << 0001: ... 00100h
 L_WAIT:	IN   001h	; чтение порта С
 	XRI  008h	; инвертируем индикатор РУС/ЛАТ
 	ORI  002h	; установка D[1]=1 (выкл.реле для автозапуска Вектора)
