@@ -59,7 +59,8 @@
 ## ...
 
 Фотография внутренностей собранного ПК-6128ц++:<br>
-![P3](/Photo2.jpg)<br><br>
+![P3](/Photo1.jpg)<br><br>
+![P4](/Photo2.jpg)<br><br>
 
 ![P1](/PK6128c_PP_Shema_P1.png)<br>
 ![P2](/PK6128c_PP_Shema_P2.png)
