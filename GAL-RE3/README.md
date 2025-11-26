@@ -7,5 +7,5 @@
 ![P2](/GAL-RE3/GAL2RE3.jpg)
 
 ## Прошивка
-* [RE3BR.jed](/GAL-RE3/RE3BR.jed) -- ускоренный режим работы памяти, исходники [RE3BR.pld](/GAL-RE3/RE3BR.pld) и [RE3BR.si](/GAL-RE3/RE3BR.si)
-* [RE3BN.jed](/GAL-RE3/RE3BN.jed) -- обычный режим работы памяти, исходники [RE3BR.pld](/GAL-RE3/RE3BN.pld) и [RE3BR.si](/GAL-RE3/RE3BN.si)
+* [RE3BR.jed](/GAL-RE3/RE3BR.jed) -- ускоренный режим работы памяти, исходники [RE3BR.pld](/GAL-RE3/RE3BR.PLD) и [RE3BR.si](/GAL-RE3/RE3BR.SI)
+* [RE3BN.jed](/GAL-RE3/RE3BN.jed) -- обычный режим работы памяти, исходники [RE3BR.pld](/GAL-RE3/RE3BN.PLD) и [RE3BR.si](/GAL-RE3/RE3BN.SI)
