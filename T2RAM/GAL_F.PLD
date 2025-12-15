@@ -1,0 +1,38 @@
+Name     GAL_F ;
+PartNo   00 ;
+Date     12/12/2025 ;
+Revision F ;
+Designer Improver ;
+Company  None ;
+Assembly None ;
+Location None ;
+Device   g16v8a ;
+
+/* *************** INPUT PINS *********************/
+PIN 1   = a0                      ; /* A0 F6M     10                   */ 
+PIN 2   = a1                      ; /* A1 F3M     11                   */ 
+PIN 3   = a2                      ; /* A2 F1.5M   12                   */ 
+PIN 4   = a3                      ; /* A3 F.75M   13                   */ 
+PIN 5   = a4                      ; /* A4 LD0     14                   */
+PIN 8   = a5                      ; /* NORM/VTEC  --                   */
+/*PIN 11  = !enable                 ;*/
+
+/* *************** OUTPUT PINS *********************/
+PIN 19  = D0                      ; /* D0 RATO     1                   */ 
+PIN 17  = D1                      ; /* D1 /RAS     2                   */
+PIN 15  = D2                      ; /* D2 FR71     3                   */ 
+PIN 14  = D3                      ; /* D3 MX1      4                   */ 
+PIN 16  = D4                      ; /* D4 MX2      5                   */ 
+PIN 18  = D5                      ; /* D5 FR6      6                   */ 
+PIN 13  = D6                      ; /* D6 FR7      7                   */ 
+PIN 12  = D7                      ; /* D7 FR1      9                   */ 
+
+
+D7 = a3 # a2;
+D6 = !a3 # a4 # a2 # a1;
+D5 = !a0 # a4 # a3 # a2 # a1;
+D4 = !a4&!a2&!a1 # !a5&!a4&!a3;
+D3 = !a5&!a3 # !a2;
+D2 = !a0 # !a3 # a4 # a2 # a1;
+D1 = !a5&a4&!a3 # !a5&!a3&a1&!a0 # a5&a2&a1&a0 # !a2&a1&!a0 # a4&!a2&!a1 # !a5&!a3&a2&!a1 # a3&a2&a1&a0 # !a5&!a3&!a2&a1;
+D0 = a5&a2&!a1&!a0 # a3&a2&!a1&!a0 # a5&!a2&a1 # a3&!a2&a1 # a5&!a2&a0 # a3&!a2&a0;
