@@ -1,11 +1,11 @@
 # Замена К155РЕ3 на GAL16V8B
 
-На место D10 (К155РЕ3) можно установить GAL16V8B. Схема подключения:
+На место D10 (К155РЕ3) можно установить GAL16V8B. Схема подключения и фото установки:
 
 ![P1](/GAL-RE3/GAL2RE3.png)
 
 ![P2](/GAL-RE3/GAL2RE3.jpg)
 
 ## Прошивка
-* [RE3BR.jed](/GAL-RE3/RE3BR.jed) -- ускоренный режим работы памяти, исходники [RE3BR.pld](/GAL-RE3/RE3BR.PLD) и [RE3BR.si](/GAL-RE3/RE3BR.SI)
-* [RE3BN.jed](/GAL-RE3/RE3BN.jed) -- обычный режим работы памяти, исходники [RE3BR.pld](/GAL-RE3/RE3BN.PLD) и [RE3BR.si](/GAL-RE3/RE3BN.SI)
+* [RE3_N.jed](/GAL-RE3/RE3_N.jed) -- обычный режим работы памяти, исходники [RE3_N.pld](/GAL-RE3/RE3_N.PLD) и [RE3_N.si](/GAL-RE3/RE3_N.SI)
+* [RE3__.jed](/GAL-RE3/RE3__.jed) -- ускоренный режим работы памяти, исходники [RE3__.pld](/GAL-RE3/RE3__.PLD) и [RE3__.si](/GAL-RE3/RE3__.SI)
